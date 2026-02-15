@@ -44,7 +44,7 @@ class AIController {
 
             const pdfParse = (await import("pdf-parse")).default;
 
-            const filePath = req.file.path;
+            const filePath = req.file.buffer;
             const buffer = fs.readFileSync(filePath);
 
             const parsed = await pdfParse(buffer);
