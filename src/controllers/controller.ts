@@ -4,7 +4,7 @@ import fs from "fs";
 // import { PdfIndexService } from "../service/pdfIndex.service.js";
 import { PdfQueryService } from "../service/pdfquery.service.js";
 import { WebsiteIndexService } from "../service/websiteIndex.service.js";
-import * as pdfjsLib from 'pdfjs-dist';
+// import * as pdfjsLib from 'pdfjs-dist';
 
 class AIController {
 
