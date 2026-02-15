@@ -19,7 +19,7 @@ const corsOptions = {
     methods: ["GET", "POST"],
     credentials: true
 };
-
+app.set('trust proxy', 1);
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
