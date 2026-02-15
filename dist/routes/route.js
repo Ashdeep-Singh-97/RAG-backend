@@ -1,32 +1,30 @@
 import AIController from "../controllers/controller.js";
 import express from "express";
-import multer from "multer";
+// import multer from "multer";
 import path from "path";
-import rateLimit from "express-rate-limit";
+import { rateLimit } from "express-rate-limit";
+import fs from "fs";
 const router = express.Router();
 const Controller = new AIController();
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/");
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const baseName = path.basename(file.originalname, ext);
-        const uniqueName = `${baseName}${ext}`;
-        cb(null, uniqueName);
-    },
-});
-const upload = multer({ storage });
-// ✅ Rate limiter for file upload - strict limit
-const uploadLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // Max 5 uploads per 15 minutes
-    message: {
-        error: "Arre bhai itne saare PDF mat upload karo! Thoda wait karo. 15 minute baad try karo ☕"
-    },
-    standardHeaders: true,
-    legacyHeaders: false,
-});
+const uploadDir = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+// const upload = multer({
+//   storage: multer.memoryStorage(),
+//   limits: {
+//     fileSize: 3 * 1024 * 1024, // 10MB limit (optional)
+//   },
+// });
+// const uploadLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 5, // Max 5 uploads per 15 minutes
+//   message: {
+//     error: "Arre bhai itne saare PDF mat upload karo! Thoda wait karo. 15 minute baad try karo ☕"
+//   },
+//   standardHeaders: true,
+//   legacyHeaders: false,
+// });
 // ✅ Rate limiter for website processing
 const websiteLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -58,7 +56,7 @@ const verifyLimiter = rateLimit({
     legacyHeaders: false,
 });
 // Apply rate limiters to routes
-router.post("/pdf/upload", uploadLimiter, upload.single("pdf"), Controller.upload);
+// router.post("/pdf/upload", uploadLimiter, upload.single("pdf"), Controller.upload);
 router.post("/website/process", websiteLimiter, Controller.websiteProcess);
 router.post("/chat", chatLimiter, Controller.pdfquery);
 router.get("/verify", verifyLimiter, Controller.verify);

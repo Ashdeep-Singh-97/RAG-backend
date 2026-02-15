@@ -1,5 +1,7 @@
 import { QdrantVectorStore } from "@langchain/qdrant";
 import { OpenAIEmbeddings, ChatOpenAI } from "@langchain/openai";
+const qdrantUrl = process.env.QDRANT_URL;
+const apiKey = process.env.QDRANT_API_KEY;
 export class PdfQueryService {
     static async askQuestion(question, collectionName) {
         const embeddings = new OpenAIEmbeddings({
@@ -7,7 +9,8 @@ export class PdfQueryService {
             model: "text-embedding-3-small",
         });
         const vectorStore = await QdrantVectorStore.fromExistingCollection(embeddings, {
-            url: process.env.QDRANT_URL || "http://localhost:6333",
+            url: qdrantUrl,
+            apiKey: apiKey,
             collectionName: collectionName,
         });
         const results = await vectorStore.similaritySearch(question, 5);

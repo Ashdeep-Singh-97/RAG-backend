@@ -5,10 +5,19 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 const PORT = 5001;
-app.use(cors({
-    origin: "http://localhost:3000",
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.CLIENT_URL
+].filter(Boolean);
+// CORS options
+const corsOptions = {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
     credentials: true
-}));
+};
+app.set('trust proxy', 1);
+// Apply CORS middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api", routes);
 app.get("/test", (req, res) => {

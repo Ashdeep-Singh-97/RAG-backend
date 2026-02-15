@@ -5,11 +5,12 @@ import { QdrantVectorStore } from "@langchain/qdrant";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { QdrantClient } from "@qdrant/js-client-rest";
 const COLLECTION_NAME = "web_docs";
+const qdrantUrl = process.env.QDRANT_URL;
+const apiKey = process.env.QDRANT_API_KEY;
+// init client
+const client = new QdrantClient({ url: qdrantUrl, apiKey });
 export class WebsiteIndexService {
     static async resetCollection() {
-        const client = new QdrantClient({
-            url: process.env.QDRANT_URL || "http://localhost:6333",
-        });
         try {
             await client.deleteCollection(COLLECTION_NAME);
         }
@@ -59,7 +60,8 @@ export class WebsiteIndexService {
             model: "text-embedding-3-small",
         });
         await QdrantVectorStore.fromDocuments(docs, embeddings, {
-            url: process.env.QDRANT_URL || "http://localhost:6333",
+            url: qdrantUrl,
+            apiKey: apiKey,
             collectionName: COLLECTION_NAME,
         });
         return {

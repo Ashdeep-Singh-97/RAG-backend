@@ -30,8 +30,7 @@
     "jsdom": "^27.0.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
-    "openai": "^4.104.0",
-    "pdfjs-dist": "^5.4.624"
+    "openai": "^4.104.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
