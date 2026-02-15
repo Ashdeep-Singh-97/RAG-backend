@@ -1,0 +1,48 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec tsx src/index.ts",
+    "build": "tsc",
+    "start": "tsc && nodemon dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/community": "^1.1.12",
+    "@langchain/core": "^1.1.19",
+    "@langchain/google-genai": "^2.1.15",
+    "@langchain/qdrant": "^1.0.1",
+    "axios": "^1.13.5",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "html-to-text": "^9.0.5",
+    "js-tiktoken": "^1.0.21",
+    "jsdom": "^27.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "openai": "^6.18.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^25.2.0",
+    "@types/pdf-parse": "^1.1.5",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
