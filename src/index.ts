@@ -28,7 +28,9 @@ app.use(express.json());
 app.use("/api",routes);
 
 app.get("/test", (req, res) => {
-    res.status(200).send("Test OK !");
+    res.status(200).json({
+    backend: process.env.NEXT_PUBLIC_BACKEND_URL,
+  });
 });
 
 app.listen(PORT, () => {
