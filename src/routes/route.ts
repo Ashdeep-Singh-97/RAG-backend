@@ -2,7 +2,7 @@ import AIController from "../controllers/controller.js";
 import express from "express";
 import multer from "multer";
 import path from "path";
-import rateLimit from "express-rate-limit";
+import {rateLimit} from "express-rate-limit";
 import fs from "fs";
 
 const router = express.Router();
